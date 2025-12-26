@@ -51,7 +51,16 @@
 
     
     var today = new Date();
-    var hrs = today.getHours();
+    var hrs = today.getHours();   
+    var mins = today.getMinutes();
+    var period = hrs >= 12 ? "pm" : "am";
+
+    var displayHrs = hrs % 12;
+    displayHrs = displayHrs ? displayHrs : 12; // converts 0 to 12
+    mins = mins < 10 ? "0" + mins : mins;
+
+    var time = `${displayHrs}:${mins}${period}`;
+
     var dayOfWeek = weekday[today.getDay()];
     var date = `${dayOfWeek}, ${monthNames[today.getMonth()]} ${today.getDate()}`;
 
@@ -65,10 +74,11 @@
         greet = 'good evening.  ';
 
     document.getElementById('lbl').innerHTML = `
-        <div class="container">
-          <div id="date"> ${date}</div>
-          <div class="greeting">${greet}</div>
-        <div/>
+      <div class="container">
+        <div id="date">${date}</div>
+        <div class="greeting">${greet}</div>
+        <div class="greeting">${time}</div>
+      </div>
     `;
 </script> 
 </html>
