@@ -1,84 +1,76 @@
-<html> 
+<!DOCTYPE html>
+<html>
 <head>
-    <title>date and time widget</title> 
-    <style>
-      #lbl {
-        display: flex;
-        font-family: sans-serif;
-        font-size: 18pt;
-        color: #000000;
-        padding: 5px;
-        border: 1px solid #ffffff;
-        justify-content: left;
-        line-height: 1.5;
-        height:85%;
-        font-weight: bold;
-        flex-direction: row;
-      }
+  <title>date & time widget</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      margin: 0;
+    }
 
-      #container {
-        display: flex;
-        align-items: flex-start;
-      }
+    #lbl {
+      display: flex;
+      flex-direction: column;
+      font-family: sans-serif;
+      color: #000000;
+      padding: 5px;
+      font-weight: bold;
+      line-height: 1.2;
+    }
 
-      #date{
-          font-size:12pt;
-          font-weight: bold;
-      }
+    #greeting {
+      font-size: 12pt;
+    }
 
-      body{
-          background-color: #ffffff;
-      }
-    </style>
+    #time {
+      font-size: 18pt;
+    }
+
+    #time span {
+      font-size:
+    }
+
+    #date {
+      font-size: 12pt;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="lbl"></div>
+  <div id="lbl"></div>
 </body>
 
 <script>
-    var weekday = new Array(7);
-    weekday[0] = "Sun";
-    weekday[1] = "Mon";
-    weekday[2] = "Tues";
-    weekday[3] = "Wed";
-    weekday[4] = "Thurs";
-    weekday[5] = "Fri";
-    weekday[6] = "Sat";
+  var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  var monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"];
 
-    const monthNames = ["Jan", "Feb", "March", "Apr", "May", "June",
-      "July", "Aug", "Sept", "Oct", "Nov", "Dec"
-    ];
+  var today = new Date();
+  var hrs = today.getHours();
+  var mins = today.getMinutes();
 
-    
-    var today = new Date();
-    var hrs = today.getHours();   
-    var mins = today.getMinutes();
-    var period = hrs >= 12 ? "pm" : "am";
+  var dayOfWeek = weekday[today.getDay()];
+  var date = `${dayOfWeek}, ${monthNames[today.getMonth()]} ${today.getDate()}`;
 
-    var displayHrs = hrs % 12;
-    displayHrs = displayHrs ? displayHrs : 12; // converts 0 to 12
-    mins = mins < 10 ? "0" + mins : mins;
+  var greet;
+  if (hrs < 12)
+    greet = "good morning.";
+  else if (hrs < 17)
+    greet = "good afternoon.";
+  else
+    greet = "good evening.";
 
-    var time = `${displayHrs}:${mins}${period}`;
+  var period = hrs >= 12 ? "pm" : "am";
+  var displayHrs = hrs % 12;
+  displayHrs = displayHrs ? displayHrs : 12;
+  mins = mins < 10 ? "0" + mins : mins;
 
-    var dayOfWeek = weekday[today.getDay()];
-    var date = `${dayOfWeek}, ${monthNames[today.getMonth()]} ${today.getDate()}`;
+  var time = `${displayHrs}:${mins}<span>${period}</span>`;
 
-    var greet;
-
-    if (hrs < 12)
-        greet = 'good morning.  ';
-    else if (hrs >= 12 && hrs <= 17)
-        greet = 'good afternoon. ';
-    else if (hrs >= 17 && hrs <= 24)
-        greet = 'good evening.  ';
-
-    document.getElementById('lbl').innerHTML = `
-      <div class="container">
-        <div id="date">${date}</div>
-        <div class="greeting">${greet}</div>
-        <div class="greeting">${time}</div>
-      </div>
-    `;
-</script> 
+  document.getElementById("lbl").innerHTML = `
+    <div id="greeting">${greet}</div>
+    <div id="time">${time}</div>
+    <div id="date">${date}</div>
+  `;
+</script>
 </html>
