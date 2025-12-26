@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>date & time widget</title>
+  <title>date widget</title>
   <style>
     body {
       background-color: #ffffff;
@@ -18,19 +18,11 @@
     }
 
     #greeting {
-      font-size: 18pt;
-    }
-
-    #time {
-      font-size: 32pt;
-    }
-
-    #time span {
-      font-size: 18pt;
+      font-size: 16pt;
     }
 
     #date {
-      font-size: 18pt;
+      font-size: 24pt;
     }
   </style>
 </head>
@@ -59,16 +51,8 @@
   else
     greet = "good evening";
 
-  var period = hrs >= 12 ? "pm" : "am";
-  var displayHrs = hrs % 12;
-  displayHrs = displayHrs ? displayHrs : 12;
-  mins = mins < 10 ? "0" + mins : mins;
-
-  var time = `${displayHrs}:${mins}<span>${period}</span>`;
-
   document.getElementById("lbl").innerHTML = `
     <div id="greeting">${greet}</div>
-    <div id="time">${time}</div>
     <div id="date">${date}</div>
   `;
 </script>
